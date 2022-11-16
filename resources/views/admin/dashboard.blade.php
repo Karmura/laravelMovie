@@ -22,14 +22,12 @@
         </div>
 
 
+        <div class="admin-body-container">
+            <main class="pt-5 mt-5">
+                @yield('content')
+            </main>
 
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-
-
-        {{-- @include('admin.adminNav.footer') --}}
+        </div>
 
     </div>
 

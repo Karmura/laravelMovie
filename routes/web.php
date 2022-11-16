@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MovieController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +25,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function() {
 
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/movie', [MovieController::class, 'index'])->name('admin.listMovie');
+    Route::post('storeMovie',[MovieController::class,'storeMovie'])->name('admin.storeMovie');
+    Route::get('/createMovie', [MovieController::class, 'createMovie'])->name('admin.createMovie');
+    Route::get('/editMovie', [MovieController::class, 'editMovie'])->name('admin.editMovie');
 
 });
