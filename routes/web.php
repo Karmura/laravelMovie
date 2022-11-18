@@ -29,8 +29,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/movie', [MovieController::class, 'index'])->name('admin.listMovie');
-    Route::post('storeMovie',[MovieController::class,'storeMovie'])->name('admin.storeMovie');
+
     Route::get('/createMovie', [MovieController::class, 'createMovie'])->name('admin.createMovie');
-    Route::get('/editMovie', [MovieController::class, 'editMovie'])->name('admin.editMovie');
+    Route::post('storeMovie',[MovieController::class,'storeMovie'])->name('admin.storeMovie');
+    Route::delete('deleteMovie/{id}',[MovieController::class,'deleteMovie'])->name('admin.deleteMovie');
+    Route::get('/editMovie/{id}', [MovieController::class, 'editMovie'])->name('admin.editMovie');
 
 });

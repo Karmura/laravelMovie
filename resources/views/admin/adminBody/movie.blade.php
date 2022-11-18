@@ -22,19 +22,31 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        @foreach ($movies as $movie)
                         <tr>
-                            <th scope="col">1</th>
-                            <td>Movie 1</td>
+                            <th scope="col">{{ $movie->id }}</th>
+                            <td>{{ $movie->title }}</td>
                             <td>Action</td>
+                            @foreach ($movie->images as $image)
                             <td>
-                                <div class="image" style="background: ;"></div>
+                                <img src="/asset/image/{{ $image->image }}" alt="" class="image" />
                             </td>
-                            <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+                            @endforeach
+                            <td>{{ $movie->description }}</td>
                             <td>
-                                <a href="{{ route('admin.editMovie') }}" class="btn btn-sm btn-success mb-2">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger mb-2">Delete</a>
+                                <a href="/admin/editMovie/{{ $movie->id }}" class="btn btn-sm btn-success mb-2">Edit</a>
+
+                                <form action="/admin/deleteMovie/{{ $movie->id }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure?');">Delete</button>
+                                </form>
+
                             </td>
                         </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Image;
+use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {
     public function index()
     {
-        return view('admin.adminBody.movie');
+        $movies = Movie::all();
+        return view('admin.adminBody.movie')->with('movies',$movies);
     }
 
     public function createMovie()
@@ -22,34 +25,72 @@ class MovieController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            // 'tag' => 'required',
             'image' => 'required|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
             'description' => 'required',
-            // 'video' => 'required|file|mimetypes:video/mp4',
         ]);
 
-        if($request->hasFile('image')) {
-            $file = $request->file('image');
-            $imageName = 'cover_' . time() . '_' . $file->getClientOriginalName();
-            $file->move(('movie/image'), $imageName);
+        // if($request->hasFile('image')){
+        //     $file = $request->file("image");
+        //     $imageName = "image".time()."_".$file->getClientOriginalName();
+        //     $file->move(\public_path("image/"),$imageName);
 
-            $movie = new Movie([
-                "title" => $request->title,
+        //     $movie = new Movie([
+        //         "title" => $request->title,
+        //         "description" => $request->description,
+        //     ]);
+        //     $movie->save();
+        // }
+        $movie = new Movie([
+            "title" => $request->title,
+            "description" => $request->description,
+        ]);
+        $movie->save();
+
+        if($request->hasFile("image")){
+            $files = $request->file("image");
+            // foreach($files as $file){
+            //     $imageName = "image"."_".time().$file->getClientOriginalName();
+            //     $request['movie_id'] = $movie->id;
+            //     $request['image'] = $imageName;
+            //     $file->move(\public_path("image/"),$imageName);
+
+            //     Image::create($request->all());
+            //     dd($file);
+            // }
+            $imageName = "image"."_".time().$files->getClientOriginalName();
+            $request['movie_id'] = $movie->id;
+            $request->image = $imageName;
+            $files->move(\public_path("asset/image/"),$imageName);
+            Image::create([
                 "image" => $imageName,
-                "description" => $request->description,
+                "movie_id" => $movie->id,
             ]);
-            $movie->save();
-            dd("success");
-        }else{
-            dd("Fail");
         }
-        // return redirect("admin/dashboard");
-
+        return redirect("/admin/movie");
 
     }
 
-    public function editMovie()
+    public function deleteMovie($id)
     {
-        return view('admin.adminBody.editMovie');
+        $movies = Movie::findOrFail($id);
+
+        // if(File::exists("image/".$movies->image)){
+        //     File::delete("image/".$movies->image);
+        // }
+        $images = Image::where("movie_id",$movies->id)->get();
+        foreach($images as $image){
+            if(File::exists("asset/image/".$image->image)){
+                File::delete("asset/image/".$image->image);
+                $image->delete();
+            }
+        }
+        $movies->delete();
+        return back();
+    }
+
+    public function editMovie($id)
+    {
+        $movies = Movie::findOrFail($id);
+        return view('admin.adminBody.editMovie')->with('movies',$movies);
     }
 }

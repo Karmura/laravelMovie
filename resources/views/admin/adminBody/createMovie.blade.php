@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-md-12">
-                <form action="{{ route('admin.storeMovie') }}" method="POST" class="createform">
+                <form action="{{ route('admin.storeMovie') }}" method="POST" class="createform" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
