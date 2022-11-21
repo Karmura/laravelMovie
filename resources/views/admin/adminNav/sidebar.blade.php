@@ -4,7 +4,7 @@
 
 <div class="text-light sidebarTags">
     <a href="{{ route('admin.listMovie') }}">Add movies</a>
-    <a href="">Add Tags</a>
+    <a href="{{ route('admin.tagMovie') }}">Add Tags</a>
     <a href="">Profile</a>
     <a href="">User</a>
 </div>

@@ -37,7 +37,9 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function() {
 
     Route::get('/editMovie/{id}', [MovieController::class, 'editMovie'])->name('admin.editMovie');
     Route::get('/deleteImage/{id}', [MovieController::class, 'deleteImage']);
-    // Route::get('/testMovie',[MovieController::class,'testMovie'])->name('admin.testMovie');
     Route::put('/updateMovie/{id}',[MovieController::class,'updateMovie'])->name('admin.updateMovie');
+
+    Route::get('/tagMovie',[MovieController::class,'tagMovie'])->name('admin.tagMovie');
+    Route::get('/crerateTag',[MovieController::class,'createTag'])->name('admin.createTag');
 
 });

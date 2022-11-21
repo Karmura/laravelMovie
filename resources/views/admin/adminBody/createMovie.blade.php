@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <div class="container-fluid">
         <div class="row">
 
             <div class="col-md-12">
@@ -21,13 +20,13 @@
                         <input type="text" name="title" id="title" class="form-control" placeholder="Enter Movie Title" />
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="tag"><h4>Movie Tags</h4></label>
                         <select name="tag" id="tag" class="form-control" />
                             <option disabled selected>Select Movie Tags</option>
                             <option value="1">Action</option>
                         </select>
-                    </div> --}}
+                    </div>
 
                     <div class="form-group">
                         <label for="image"><h4>Movie Cover Image</h4></label>
@@ -39,10 +38,10 @@
                         <textarea name="description" id="description" class="form-control" rows="10"  placeholder="Enter Movie Description"></textarea>
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="video"><h4>Movie Cover Video</h4></label>
                         <input type="file" name="video" id="video" class="form-control" />
-                    </div> --}}
+                    </div>
 
                     <div class="form-group mt-5">
                         <button type="submit" class="btn btn-success form-control fw-bold py-3">Create Movie</button>
@@ -53,6 +52,5 @@
 
 
         </div>
-    </div>
 
 @endsection

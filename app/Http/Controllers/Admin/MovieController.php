@@ -16,6 +16,15 @@ class MovieController extends Controller
         return view('admin.adminBody.movie')->with('movies',$movies);
     }
 
+    public function tagMovie()
+    {
+        return view('admin.adminBody.tagMovie');
+    }
+    public function createTag()
+    {
+        return ;
+    }
+
     public function createMovie()
     {
         return view('admin.adminBody.createMovie');
