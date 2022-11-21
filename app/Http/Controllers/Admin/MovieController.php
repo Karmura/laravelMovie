@@ -91,6 +91,54 @@ class MovieController extends Controller
     public function editMovie($id)
     {
         $movies = Movie::findOrFail($id);
+        // dd($movies);
         return view('admin.adminBody.editMovie')->with('movies',$movies);
     }
+
+    public function deleteImage($id)
+    {
+        $images = Image::findOrFail($id);
+        if(File::exists("asset/image/".$images->image)){
+            File::delete("asset/image/".$images->image);
+        }
+        Image::find($id)->delete();
+        return back();
+    }
+    public function updateMovie(Request $request, $id)
+    {
+        $movie = Movie::findOrFail($id);
+        $movie->update([
+            "title" => $request->title,
+            "description" => $request->description,
+        ]);
+        foreach($movie->images as $image){
+            if($request->hasFile("image")){
+                if(File::exists("asset/image/".$image->image)){
+                    File::delete("asset/image/".$image->image);
+                    $image->delete();
+                }
+                $files = $request->file("image");
+                // foreach($files as $file){
+                //     $imageName = "image"."_".time().$files->getClientOriginalName();
+                //     $request['movie_id'] = $id;
+                //     $request['image'] = $imageName;
+                //     $files->move(\public_path("asset/image/"),$imageName);
+                //     Image::create([
+                //         "image" => $imageName,
+                //         "movie_id" => $movie->id,
+                //     ]);
+                // }
+                $imageName = "image"."_".time().$files->getClientOriginalName();
+                $request['movie_id'] = $movie->id;
+                $request->image = $imageName;
+                $files->move(\public_path("asset/image/"),$imageName);
+                Image::create([
+                    "image" => $imageName,
+                    "movie_id" => $movie->id,
+                ]);
+            }
+        }
+        return redirect("/admin/movie");
+    }
+
 }

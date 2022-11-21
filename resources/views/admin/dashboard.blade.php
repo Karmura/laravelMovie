@@ -15,18 +15,15 @@
 
         <div class="admin-container">
             @include('admin.adminNav.navbar')
+
+            <main class="mt-3">
+                @yield('content')
+            </main>
+
         </div>
 
         <div class="admin-sidebar">
             @include('admin.adminNav.sidebar')
-        </div>
-
-
-        <div class="admin-body-container">
-            <main class="pt-5 mt-5">
-                @yield('content')
-            </main>
-
         </div>
 
     </div>

@@ -3,20 +3,25 @@
 }
 body{
     background: rgba(0,0,0,0.2);
-    /* background-color: red; */
 }
 :root{
     --pricolor: #222;
+}
+.app{
+    position: relative;
 }
 /* Start Navbar */
 .admin-container{
     width: 80%;
     height: auto;
-    background: var(--pricolor);
+    /* background: var(--pricolor); */
 
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
+}
+.admin-nav{
+    background: var(--pricolor);
 }
 .navbar-expand-lg{
     background: var(--pricolor);
@@ -57,7 +62,8 @@ body{
     color: brown;
 }
 .navbar-toggler{
-    transform: translateX(300px);
+    background-color: #fff;
+    /* transform: translateX(300px); */
 }
 
 /* End Navbar */
@@ -112,9 +118,6 @@ body{
 /* Start Body */
 .admin-body-container{
     width: 80%;
-
-    position: fixed;
-    right: 0;
 }
 .movieheader{
     margin-bottom: 10px;
@@ -146,6 +149,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+/* start create blade */
 .createform{
     background: var(--pricolor);
     color: #fff;
@@ -155,6 +159,20 @@ body{
 .createform .form-group{
     margin-bottom: 20px;
 }
+/* end create blade */
+
+/* start edit blade */
+.editform{
+    background: var(--pricolor);
+    color: #fff;
+    padding: 20px;
+}
+.editform .form-group{
+    margin-bottom: 20px;
+}
+
+/* end edit blade */
+
 /* End Body */
 
 /* Start Footer */
