@@ -20,10 +20,6 @@ class MovieController extends Controller
     {
         return view('admin.adminBody.tagMovie');
     }
-    public function createTag()
-    {
-        return ;
-    }
 
     public function createMovie()
     {

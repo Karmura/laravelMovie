@@ -14,7 +14,6 @@ body{
 .admin-container{
     width: 80%;
     height: auto;
-    /* background: var(--pricolor); */
 
     position: absolute;
     top: 0;

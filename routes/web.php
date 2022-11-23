@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\TagController;
 
 
 /*
@@ -39,7 +40,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function() {
     Route::get('/deleteImage/{id}', [MovieController::class, 'deleteImage']);
     Route::put('/updateMovie/{id}',[MovieController::class,'updateMovie'])->name('admin.updateMovie');
 
-    Route::get('/tagMovie',[MovieController::class,'tagMovie'])->name('admin.tagMovie');
-    Route::get('/crerateTag',[MovieController::class,'createTag'])->name('admin.createTag');
+    Route::get('/tagMovie',[TagController::class,'index'])->name('admin.tagMovie');
+    Route::post('/createTag',[TagController::class,'createTag'])->name('admin.createTag');
+    Route::get('/deleteTag/{id}',[TagController::class,'deleteTag']);
+    Route::get('/editTag/{id}',[TagController::class, 'editTag']);
+    Route::put('/updateTag/{id}',[TagController::class, 'updateTag']);
 
 });
